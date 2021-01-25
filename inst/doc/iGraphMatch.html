@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>iGraphMatch</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">iGraphMatch</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(iGraphMatch)</span></code></pre></div>
+<div id="general-description-of-graph-matching" class="section level4">
+<h4>General Description of Graph Matching</h4>
+<p>Graph matching is an increasingly important problem which can be applied to a wide variety of fields including biology, neuroscience, pattern recognition and machine learning, to name a few. For example, as a fundamental tool in solving pattern recognition problem, graph matching is widely used in computer vision. In this problem, one seeks to find a correspondence between local features of the image, which are labeled as nodes of the graphs. Relational aspects between features are modeled by edges of the graphs in this context.</p>
+<p>While packages such as <code>iGraph</code> and <code>GraphM</code> also have graph matching functionality our goal is to provide a single centralized repository for graph matching which attempts to confront many of the additional pathologies of graph matching. While the <code>iGraph</code> package provides versatile options on descriptive network analysis and graph visualization based on igraph objects in R, Python and C/C++, it doesn’t focus on implementation of the most commonly used and cutting edge algorithms of graph matching. In contrast to <code>iGraph</code>, the <code>iGraphMatch</code> package is also more flexible in dealing with different type of graph objects, ranging from igraph objects to matrix objects. The <code>GraphM</code>  provides tools for approximately soloving large scale graph matching problems. It implements a variety of graph methods that were proposed between 1999 and 2009, including Umeyama algorithm, Linear programming approach, Rank algorithm, QCV (Quadratic convex relaxation) algorithm and PATH (A path following) algorithm in C/C++. Its corresponding R package version <code>RGraphM</code> hasn’t been published yet.</p>
+</div>
+<div id="what-is-the-graph-matching-problem" class="section level4">
+<h4>What Is the Graph Matching Problem</h4>
+<p>The graph matching problem seeks to find an alignment between the vertices of two graphs with shuffled labels. To formulate the problem, given two adjacency matrices <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> corresponding to graphs <span class="math inline">\(G1\)</span> and <span class="math inline">\(G2\)</span> with <span class="math inline">\(n\)</span> nodes, the target is to find the true permutation matrix <span class="math inline">\(P=\)</span>argmin_{P} A-PBP^T _F$, where <span class="math inline">\(\Pi\)</span> denotes the set of all the <span class="math inline">\(n \times n\)</span> permutation matrices, <span class="math inline">\(\Vert \bullet \Vert\)</span> denotes the Froebenius norm. In a mathematical sense, the graph matching problem is a quadratic assignment problem. The goal of research in graph matching has been focused on developing more accurate or faster algorithms to approximately match two graphs since the problem is NP-hard.</p>
+<p>Seeded graph matching has been extensively studied in the literature . Suppose that we know the correspondence between a subset of vertices in both graphs. With some available seeds, the problem is to minimize <span class="math inline">\(\Vert A-(I\oplus P)B(I\oplus P)^T\Vert_F\)</span> over all <span class="math inline">\(m\)</span>-by-<span class="math inline">\(m\)</span> permutation matrices <span class="math inline">\(P\)</span>, where <span class="math inline">\(m:=n-s\)</span>, and <span class="math inline">\(\oplus\)</span> is the direct sum, and <span class="math inline">\(I\)</span> is the identity matrix.</p>
+</div>
+<div id="what-can-igraphmatch-package-do" class="section level4">
+<h4>What Can iGraphMatch Package Do</h4>
+<p>The <code>iGraphMatch</code> package aims to provide useful and convenient tools to users who are dealing with problems related to graph matching and working with either igraph objects or matrix objects. Among the capabilities of this package, you can do the following:</p>
+<ul>
+<li>Implement the FAQ algorithm and convex relaxed algorithm to match two given undirected, weighted or unweighted graphs.</li>
+<li>Incorporate prior information such as known correspondences and probabilistic estimates of the correspondences.</li>
+<li>Evaluate goodness of matching for each vertex.</li>
+<li>Initialize different start matrix for the graph matching iteration.</li>
+<li>Generate pairs of graph samples according to a specific graph model, e.g. Erdős-Rényi graph model, random dot product graph model and stochastic block model, etc.</li>
+</ul>
+</div>
+<div id="outline-of-this-vignette" class="section level4">
+<h4>Outline of This Vignette</h4>
+<p>This document introduces <code>iGraphMatch</code>’s basic set of tools by showing you how to apply them to some problems in the graph matching field:</p>
+<ul>
+<li>Graph matching with different initialization of start matrix.</li>
+<li>Find core vertices in the presence of junk vertices.</li>
+<li>Graph matching with adaptive seeds.</li>
+</ul>
+</div>
+<div id="background" class="section level2">
+<h2>Background</h2>
+<div id="graph-mathcing-algorithms" class="section level3">
+<h3>Graph Mathcing Algorithms</h3>
+<p>The graph matching algorithms currently implemented in <code>iGraphMatch</code> are the FAQ algorithm  (<code>graph_match_FW</code>) and the convex relaxed algorithm (<code>graph_match_convex</code>) . Seeded graph matching algorithm is an extension of FAQ algorithm which incorporates seeds .</p>
+<p>Formally, for any two <span class="math inline">\(n\)</span>-by-<span class="math inline">\(n\)</span> adjacency matrices <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> corresponding to two graphs <span class="math inline">\(G1\)</span> and <span class="math inline">\(G2\)</span> with <span class="math inline">\(n\)</span> nodes, the graph matching problem is to minimize <span class="math inline">\(\Vert A-PBP^T \Vert_F^2\)</span> over all <span class="math inline">\(n\)</span>-by-<span class="math inline">\(n\)</span> permutation matrices, and <span class="math inline">\(\Vert \bullet \Vert_F\)</span> denotes the Froebenius norm, which is to minimize the edge disagreements between <span class="math inline">\(G1\)</span> and <span class="math inline">\(G2\)</span>. For any <span class="math inline">\(P\in\Pi\)</span>, where <span class="math inline">\(\Pi\)</span> is the set of all the permutation matrices, the original objective function of the graph matching problem can be expanded <span class="math display">\[\Vert A-PBP^T \Vert_F^2 = \Vert AP-PB \Vert^2_F = \Vert A \Vert^2_F + \Vert B \Vert^2_F - 2\langle AP,PB \rangle.\]</span> The first equality holds due to unitarity of the permutation matrices. Optimizing any of these equivalent forms of the objective function over all the permutation matrices is a NP-hard quadratic assignment problem due to the combinatorial complexity of the constraints <span class="math inline">\(P\in\Pi\)</span>.</p>
+<p>Relaxation techniques can be applied to solve the optimization problem by replacing the constraints from all the permutation matrices to all the doubly stochastic matrices, which is the convex hull of <span class="math inline">\(\Pi\)</span>. There are two ways to relax the original graph matching problem, which correspond to two equivalent forms of the graph matching objective function. When relaxation is applied to the middle term, we get the convex relaxed graph matching problem, which is to minimize <span class="math inline">\(\Vert AD-DB \Vert^2_F\)</span> over all the <span class="math inline">\(n\)</span>-by-<span class="math inline">\(n\)</span> doubly stochastic matrices. When relaxation is applied to the third term, the graph matching problem becomes maximizing <span class="math inline">\(\mathrm{tr}BDAD^T\)</span> over all the <span class="math inline">\(n\)</span>-by-<span class="math inline">\(n\)</span> doubly stochastic matrices, we call it the indefinite relaxed graph matching problem. The Hessian of <span class="math inline">\(\mathrm{tr}BDAD^T\)</span> is not necessarily positive definite, this is why it got the name. In order to clearly present the relationships between the original graph matching problem and these two different relaxation techniques, we list the descriptions and properties of them in the table below.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Graph Matching Problem</th>
+<th align="center">Objective Functions</th>
+<th align="center">Constraints</th>
+<th align="right">Optimization Guarantees</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Original Form</td>
+<td align="center"><span class="math inline">\(\Vert A-PBP^T \Vert _F^2\)</span></td>
+<td align="center"><span class="math inline">\(P\in \Pi\)</span></td>
+<td align="right">NP-hard</td>
+</tr>
+<tr class="even">
+<td>Indefinite Relaxed Form</td>
+<td align="center"><span class="math inline">\(\mathrm{tr}BDAD^T\)</span></td>
+<td align="center"><span class="math inline">\(D\in \mathcal{D}\)</span></td>
+<td align="right">Local Convergence</td>
+</tr>
+<tr class="odd">
+<td>Convexed Relaxed Form</td>
+<td align="center"><span class="math inline">\(\Vert AD-DB \Vert _F^2\)</span></td>
+<td align="center"><span class="math inline">\(D\in \mathcal{D}\)</span></td>
+<td align="right">Global Convergence</td>
+</tr>
+</tbody>
+</table>
+<p>The FAQ algorithm  is an efficient approximate graph matching algorithm based on Frank-Wolfe methodology, which is a gradient acent approach. The Frank-Wolfe methodology is described in algorithm . Experimental studies yield that it’s reasonable to set the number of iteration less than 25. In the <code>graph_match_FW</code> function, the default setting for <code>max_iter</code> parameter is 100. Previous studies have proved that if <span class="math inline">\(n\ge 100\)</span> and <span class="math inline">\(G2\)</span>, which is an isomorphic copy of <span class="math inline">\(G1\)</span>, has <span class="math inline">\(V(G2)\)</span> being a discrete-uniform random permutation of <span class="math inline">\(V(G1)\)</span>, then the probability of FAQ yields the correct alignment is nearly 1.</p>
+<p>Finally, let’s look at the optimization guarantees for different relaxation methods. The convex relaxed problem can achieve the glocal minimum. But we can only employ the tools of continuous optimization to find the local maximum for the indefinite relaxed problem, and therefore initialization is significant for the problem. These global optima or local optima is then projected back to <span class="math inline">\(\Pi\)</span>, yielding an approximate solution to the original optimization problem.</p>
+<p>In the context of seeded graph matching , without loss of generality, assume the correct matching is <span class="math inline">\(I\)</span> and suppose the first <span class="math inline">\(s\)</span> nodes are seeds. Suppose <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are adjacency matrices of graphs <span class="math inline">\(G1\)</span> and <span class="math inline">\(G2\)</span> with <span class="math inline">\(n\)</span> nodes. To formulate the seeded graph matching algorithm, denote the number of nonseed <span class="math inline">\(m:=n-s\)</span>, and partition adjacency matrices <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> <span class="math display">\[A=\begin{bmatrix} A_{11} &amp; A^T_{21} \\ A_{21} &amp; A_{22} \end{bmatrix}\quad B=\begin{bmatrix} B_{11} &amp; B^T_{21} \\ B_{21} &amp; B_{22} \end{bmatrix}\quad\]</span> where <span class="math inline">\(A_{11},B_{11}\in \{0,1\}^{s\times s}\)</span> denotes the adjacency matrices corresponding to seeds, <span class="math inline">\(A_{22},B_{22}\in \{0,1\}^{m\times m}\)</span> denotes the adjacency matrices corresponding to nonseeds, and <span class="math inline">\(A_{21},B_{21}\in \{0,1\}^{m\times s}\)</span> corresponds to the nonseed to seed information. Then the seeded graph matching problem is to find <span class="math inline">\(P=\)</span> argmax<span class="math inline">\(_{P\in \Pi}\)</span> <span class="math inline">\(\mathrm{tr}A^T(I\oplus P)B(I\oplus P)^T\)</span>, where <span class="math inline">\(\Pi\)</span> is the set of all permutation matrices. To apply the Frank-Wolfe methodology, relax the maximization of <span class="math inline">\(\mathrm{tr}A^T(I\oplus P)B(I\oplus P)^T\)</span> over all permutation matrices to the maximization of the same objective function over all doubly stochastic matrices to form a convex optimization problem. Further simplification yields the objective function <span class="math display">\[f(D)=\mathrm{tr}A_{11}B_{11}+2\mathrm{tr}D^TA_{21}B_{21}^T+\mathrm{tr}A_{22}DB_{22}P^T\]</span> with gradient <span class="math display">\[\triangledown (D)=2A_{21}B_{21}^T+2A_{22}DB_{22}.\]</span> where <span class="math inline">\(D\)</span> denotes the doubly stochastic matrix. Then apply the Frank-Wolfe methodology with the specified objective function and gradient function, and optimize over all the <span class="math inline">\(m\)</span>-by-<span class="math inline">\(m\)</span> doubly stochastic matrices. Therefore, to understand the seeded graph matching, it is still based on the Frank-Wolfe methodology while using different objective function to incorporate seeds.</p>
+<p>Suppose we are matching two graphs with cardinality <span class="math inline">\(n\)</span>, the running times of both the FAQ algorithm and convex relaxed algorithm are <span class="math inline">\(O(n^3)\)</span> (per iteration). In <code>iGraphMatch</code> package, for both <code>graph_match_FW</code> (corresponds to the FAQ algorithm) and <code>graph_match_convex</code> (corresponds to convex relaxed algorithm) functions, the argument <code>seeds</code> incorporates seeds information.</p>
+</div>
+<div id="correlated-erdős-rényi-random-graphs" class="section level3">
+<h3>Correlated Erdős-Rényi Random Graphs</h3>
+<p>Presently, we describe Correlated Erdős-Rényi random graphs model . This model is an extensively used theoretical framework within which many theorems are proved. This model is frequently used in simulations as well.</p>
+<p>Correlated Erdős-Rényi random graphs model is specified by parameters including a positive number <span class="math inline">\(n\)</span>, a real number <span class="math inline">\(p\in (0,1)\)</span> and a real number <span class="math inline">\(\rho \in [0,1]\)</span>. Suppose we have two graphs <span class="math inline">\(G1\)</span> and <span class="math inline">\(G2\)</span> whose common cardinality of vertex set is <span class="math inline">\(n\)</span>. For each pair of vertices <span class="math inline">\(\{v,v&#39;\}\in {{V}\choose {2}}\)</span>, let <span class="math inline">\(\mathds{1} \{ \{v,v&#39; \}\in E(Gi) \}\)</span> denote the indicator variable for the event <span class="math inline">\(\{v,v&#39;\}\in E(Gi)\)</span>, where <span class="math inline">\(i=1,2\)</span>. Correlated Erdős-Rényi Random Graphs model assumes that the indicator variable <span class="math inline">\(\mathds{1} \{ \{v,v&#39; \}\in E(Gi)\}\)</span> follows Bernoulli(<span class="math inline">\(p\)</span>) distribution. We call <span class="math inline">\(p\)</span> edge probability, because it is the probability of there existing an edge between <span class="math inline">\(\{ \{v,v&#39; \}\in E(Gi)\}\)</span>. Note that the random indicator variables are all independent within a graph, but there is Pearson product-moment correlation coefficient <span class="math inline">\(\rho\)</span> between each pair of vertices <span class="math inline">\(\{ v,v&#39; \}\in {{V}\choose {2}}\)</span> across graphs. If <span class="math inline">\(\rho\)</span> is 0, then <span class="math inline">\(G1\)</span> and <span class="math inline">\(G2\)</span> are independent, and at the other extreme, if <span class="math inline">\(\rho\)</span> is 1, then <span class="math inline">\(G1\)</span> and <span class="math inline">\(G2\)</span> are identical almost surely.</p>
+<p>Random dot product graphs (RDPG) model is another frequently used random graphs model, which can be regarded as an extension of correlated Erdős-Rényi Random Graphs model. For the RDPG model, for each pair of vertices <span class="math inline">\(\{v,v&#39;\}\in {{V}\choose {2}}\)</span>, the edge probability <span class="math inline">\(p\)</span> between them is specified by the dot product of two vectors in <span class="math inline">\(\mathds{R}^d\)</span> drawn from distribution <span class="math inline">\(\mathds{F}^d\)</span>, representing latent positions. Given this, the probability of an edge occuring between <span class="math inline">\(\{v,v&#39;\}\)</span> is determined by the Bernoulli trail with probability given by the dot product of two latent positions vectors.</p>
+<p>In <code>iGraphMatch</code> package, <code>sample_correlated_gnp_pair</code> and <code>sample_correlated_gnp_pair_w_junk</code> are two useful functions to generate graph pairs from Correlated Erdős-Rényi Random Graphs model. <code>sample_correlated_rdpg</code> function is for sampling a pair of graphs from random dot product graphs model.</p>
+</div>
+</div>
+<div id="initialization-methods-for-soft-seeding" class="section level2">
+<h2>Initialization Methods For Soft Seeding</h2>
+<div id="soft-seeding-graph-matching" class="section level3">
+<h3>Soft Seeding Graph Matching</h3>
+<p>In the previous studies on seeded graph matching, authors often assume that there is prior knowledge about the vertex correspondence. This could be that part of the bijection between the two vertex sets is known. However, in many cases, knowledge on seeds is quite limited, e.g. there might be errors in the seeds or we may only know the range of possible matches to a seed. If we still incorporate these information as hard seeds and keep them fixed during graph matching, incorrect information can yield bad matching results. As a result, we propose another way to make use of such information by incorporating them into the initialization of <span class="math inline">\(D^0\)</span> in the first step of the FAQ algorithm. We call such kind of information soft seeds.</p>
+<p>Soft seeds can improve graph matching performance when the prior information is uncertaint since soft seeds are not fixed. Suppose <span class="math inline">\(n_{ss}\)</span> is the number of soft seeds, <span class="math inline">\(n_{ns}\)</span> is the number of nonseeds. Soft seeding algorithm is based on the Frank-Wolfe methodology which is described in algorithm . Without loss of generality, assume the first <span class="math inline">\(n_{ss}\)</span> of the non-hard-seeds are soft seeds. In step 1, soft seeding initializes the start matrix at <span class="math inline">\(D^0=\begin{bmatrix} D_{n_{ss}}^0 &amp; \textbf{0}^T \\ \textbf{0} &amp; D_{n_{ns}}^0 \end{bmatrix}\quad\)</span><span class="math inline">\(P\)</span>, where <span class="math inline">\(D_{n_{ss}}\)</span> is <span class="math inline">\(n_{ss}\)</span>-by-<span class="math inline">\(n_{ss}\)</span> doubly stochastic matrix, which denotes matrix of m soft seeds from graph <span class="math inline">\(A\)</span> to graph <span class="math inline">\(B\)</span>. <span class="math inline">\(D_{n_{ss}}\)</span> can be an identity matrix or any doubly stochatic matrix to represent many-to-many soft seeds information. <span class="math inline">\(\textbf{0}\)</span> is the <span class="math inline">\(n_{ns}\)</span>-by-<span class="math inline">\(n_{ss}\)</span> zero matrix. <span class="math inline">\(D_{n_{ns}}\)</span>, which is <span class="math inline">\(n_{ns}\)</span>-by-<span class="math inline">\(n_{ns}\)</span> doubly stochastic matrix, denotes matrix without soft seeds. <span class="math inline">\(P\)</span>, which is a n-by-n permutation matrix multiplied on the right side of the block matrix, denotes permutation to columns.</p>
+</div>
+<div id="initialization-methods" class="section level3">
+<h3>Initialization Methods</h3>
+<p>Soft seeds are implemented by choosing a specific initialization for the Frank-Wolfe iterations, which is to initialize matrix <span class="math inline">\(D^0\)</span>. Notice that <span class="math inline">\(D^0\)</span> is composed of two doubly stochastic matrices, <span class="math inline">\(D_{n_{ss}}^0\)</span> and <span class="math inline">\(D_{n_{ns}}^0\)</span> should be initialized seperately. <span class="math inline">\(D_{n_{ss}}^0\)</span> is specified by incorporating the information in soft seeds. If the soft seeds are one-to-one, which means each soft seed is matched to a specific vertex in the other graph, then <span class="math inline">\(D_{n_{ss}}^0 \in\{0,1\}^{n_{ss}\times n_{ss}}\)</span>. Or if the soft seeds are many-to-many, that is we only know probabilistic estimates of the correspondences, <span class="math inline">\(D_{n_{ss}}^0\)</span> should still be a doubly stochastic matrix. While <span class="math inline">\(D_{n_{ss}}^0\)</span> can be uniquely specified by the information in soft seeds, there are multiple ways to initialize <span class="math inline">\(D_{n_{ns}}^0\)</span>. Presently, we discuss different methods of initialization of <span class="math inline">\(D_{n_{ns}}^0\)</span> which affects the performance of soft seeding. Here we will discuss three initialization methods: barycenter start, random doubly stochastic start and convex start. A good choice of the start matrix contributes to finding the global optimum permutation matrix and to higher speed of reaching the result.</p>
+<p>The most straightforward way is to initialize at the barycenter, indicating that each nonseed vertex is equally likely to be matched to other nonseed vertices. Suppose <span class="math inline">\(n_{ns}\)</span> is the number of non seeds and <span class="math inline">\(n_{ss}\)</span> is the number of soft seeds. The formula for barycenter start is: <span class="math display">\[D_{n_{ns}}=D_{bari}=\frac{1}{n_{ns}-n_{ss}}\mathds{1}\mathds{1}^T_{(n_{ns}-n_{ss})\times(n_{ns}-n_{ss})}.\]</span></p>
+<p>Another approach to initialize the start matrix is to use a random doubly stochastic matrix. The algorithm to generate a random doubly stochastic matrix incorporates the sinkhorn iterative renormalization approach.  The basic idea is to normalize rows and columns of the matrix iteratively. Algorithm  describes how the algorithm works. Note that the expectation of the random doubly stochastic matrix is barycenter.</p>
+<p>Here we illustrate the convex initialization method in the general setting where we have both hard seeds and soft seeds. Suppose hard seeds provide the correct bijection between two vertex sets. To generate the convex start matrix, we first use the convex relaxed graph matching algorithm, regarding all the soft seeds as hard seeds. The correspondence of soft seeds won’t change during this initial matching process. As a result, the convex initialization method can only be applied to one-to-one soft seeds, the convex initialization method for many-to-many soft seeds doesn’t make sense. We have <span class="math inline">\(n_s+n_{ss}\)</span> seeds, where <span class="math inline">\(n_s\)</span> denotes the number of hard seeds and <span class="math inline">\(n_{ss}\)</span> denotes the number of soft seeds. Denote the number of nonseeds as <span class="math inline">\(n_{ns}:=n-n_s-n_{ss}\)</span>. Then we follow the seeded graph matching algorithm to find the doubly stochatic matrix corresponding to nonseeded vertices: <span class="math inline">\(\hat{D_{n_{ns}}}=\)</span> argmin<span class="math inline">\(_{D_{n_{ns}}\in\mathcal{D&#39;}} \Vert A-(I_{n_s}\oplus (I_{n_{ss}}\oplus D_{n_{ns}})P)B(I_{n_s}\oplus (I_{n_{ss}}\oplus D_{n_{ns}})P)^T \Vert ^2_F\)</span>, where <span class="math inline">\(\mathcal{D&#39;}\)</span> denotes the set of all <span class="math inline">\(n_{ns}\)</span>-by-<span class="math inline">\(n_{ns}\)</span> doubly stochastic matrices. <span class="math inline">\(I_{n_s}\)</span>, which is a <span class="math inline">\(n_s\)</span>-by-<span class="math inline">\(n_s\)</span> identity matrix, denotes matrix of hard seeds. <span class="math inline">\(I_{n_{ss}}\)</span>, which is a <span class="math inline">\(n_{ss}\)</span>-by-<span class="math inline">\(n_{ss}\)</span> identity matrix, denotes matrix of one-to-one soft seeds. <span class="math inline">\(D_{n_{ns}}\)</span>, which is a <span class="math inline">\(n_{ns}\)</span>-by-<span class="math inline">\(n_{ns}\)</span> matrix, denotes matrix without seeds. <span class="math inline">\(P\)</span>, which is a <span class="math inline">\((n-n_s)\)</span>-by-<span class="math inline">\((n-n_s)\)</span> permutation matrix multiplied on the right side of the block matrix, denotes permutation to columns. The convex start matrix is defined as <span class="math inline">\(D_{convex}:=(D_{n_{ss}}\oplus \hat{D_{n_{ns}}})P\)</span> which is a <span class="math inline">\((n-n_s)\)</span>-by-<span class="math inline">\((n-n_s)\)</span> matrix.</p>
+</div>
+<div id="simulations" class="section level3">
+<h3>Simulations</h3>
+<p>Soft seeding algorithm can be easily implemented in R using the existing functions in <code>iGraphMatch</code> package. Basically, the main function used is <code>graph_match_FW</code> with specification of the start method and seeds which correspond to the hard seeds. For example, now we try to compare random doubly stochastic start, bari start and convex start which are discussed above and do simulations on the correlated Erdős-Rényi graphs model. To make the result easy to be shown, we sample a graph pair with a small cardinality 10 from the correlated Erdős-Rényi graphs model with the edge probability equal to 0.5 and the correlation between two graphs to be 0.5. Set the first three pairs of vertices to be hard seeds.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(iGraphMatch)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">8</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>cgnp_pair <span class="ot">&lt;-</span> <span class="fu">sample_correlated_gnp_pair</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">corr =</span> .<span class="dv">5</span>, <span class="at">p =</span> .<span class="dv">5</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> cgnp_pair<span class="sc">$</span>graph1</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> cgnp_pair<span class="sc">$</span>graph2</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>(seeds <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">&lt;=</span> <span class="dv">3</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span></code></pre></div>
+<p>Then just randomly pick two pairs of vertices as soft seeds. Note that soft seeds may not be correct, but soft seeds may improve during the matching procedure. Let’s first pick two bad soft seeds {4,4} and {8,6} which is a combination of good soft seed and bad soft seed:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>bad_soft_seeds <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>),<span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span></code></pre></div>
+<p>Initialization of different start matrix is very convenient in R with <code>iGraphPackage</code>. Function <code>init_start</code> returns a <span class="math inline">\(n_{ns}\)</span>-by-<span class="math inline">\(n_{ns}\)</span> matrix where <span class="math inline">\(n_{ns}\)</span> denotes the number of nonseeds vertices.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>nns <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ns <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>(start_bari <span class="ot">&lt;-</span> <span class="fu">init_start</span>(<span class="at">start =</span> <span class="st">&quot;bari&quot;</span>, <span class="at">nns =</span> nns, <span class="at">ns =</span> ns, <span class="at">soft_seeds =</span> bad_soft_seeds))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Sparse part</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 x 7 sparse Matrix of class &quot;dgCMatrix&quot;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                   </span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 1 . . . . . .</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] . . . . . . .</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] . . . . . . .</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] . . . . . . .</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] . . 1 . . . .</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,] . . . . . . .</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [7,] . . . . . . .</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; plus left factor</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 x 1 sparse Matrix of class &quot;dgCMatrix&quot;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       </span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] .</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 1</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 1</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 1</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] .</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,] 1</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [7,] 1</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; times right factor transpose</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 x 1 sparse Matrix of class &quot;dgCMatrix&quot;</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         </span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] .  </span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 0.2</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] .  </span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 0.2</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 0.2</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,] 0.2</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [7,] 0.2</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>(start_rds <span class="ot">&lt;-</span> <span class="fu">init_start</span>(<span class="at">start =</span> <span class="st">&quot;rds&quot;</span>, <span class="at">nns =</span> nns, <span class="at">ns =</span> ns, <span class="at">soft_seeds =</span> bad_soft_seeds))</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 x 7 sparse Matrix of class &quot;dgCMatrix&quot;</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                                               </span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 1 .          . .          .          .          .        </span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] . 0.08224823 . 0.01678766 0.32382493 0.35940770 0.2177315</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] . 0.26796914 . 0.23130193 0.18235230 0.11682563 0.2015510</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] . 0.13781874 . 0.38747748 0.27018824 0.01979391 0.1847216</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] . .          1 .          .          .          .        </span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,] . 0.24665273 . 0.19846281 0.18927607 0.12792141 0.2376870</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [7,] . 0.26531116 . 0.16597012 0.03435846 0.37605135 0.1583089</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>(start_convex <span class="ot">&lt;-</span> <span class="fu">init_start</span>(<span class="at">start =</span> <span class="st">&quot;convex&quot;</span>, <span class="at">nns =</span> nns, <span class="at">ns =</span> ns, <span class="at">soft_seeds =</span> bad_soft_seeds, </span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>                           <span class="at">A =</span> g1, <span class="at">B =</span> g2, <span class="at">seeds =</span> seeds))</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Sparse part</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 x 7 sparse Matrix of class &quot;dgCMatrix&quot;</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                                                      </span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 0.29659736 0.16740579 .         0.12411063 0.20217656 0.07348296</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 0.05777703 0.14300415 .         .          0.07796460 0.63939292</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 0.23157496 0.41937506 .         .          0.12471556 0.13051394</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 0.09105435 0.05728915 0.2497145 0.49848492 0.05364411 .         </span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] .          0.07032994 0.3898809 0.05364411 0.36359585 .         </span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,] 0.29561797 0.06519647 0.1334635 0.29554317 .          0.09343773</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [7,] 0.02737833 0.04918226 0.2269410 .          0.14968614 0.03495526</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                </span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 0.13622670</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 0.05364411</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 0.06560330</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 0.02159578</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 0.12254920</span></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,] 0.08852395</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [7,] 0.48363979</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; plus left factor</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 x 1 sparse Matrix of class &quot;dgCMatrix&quot;</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                </span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] .         </span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 0.02821718</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] 0.02821718</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 0.02821718</span></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] .         </span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,] 0.02821718</span></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [7,] 0.02821718</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; times right factor transpose</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 x 1 sparse Matrix of class &quot;dgCMatrix&quot;</span></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         </span></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] .  </span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,] 0.2</span></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] .  </span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] 0.2</span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] 0.2</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,] 0.2</span></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [7,] 0.2</span></span></code></pre></div>
+<p>Then implement seeded graph matching using the FAQ algorithm in R by using <code>graph_match_FW</code> function. To incorporate soft seeds, we specify the <code>start</code> argument in <code>graph_match_FW</code> function accordingly. Note that in this example, we assume the true permutation to be the identity matrix.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>match_bari <span class="ot">&lt;-</span> <span class="fu">graph_match_FW</span>(g1, g2, seeds, <span class="at">start =</span> start_bari)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>match_rds <span class="ot">&lt;-</span> <span class="fu">graph_match_FW</span>(g1, g2, seeds, <span class="at">start =</span> start_rds)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>match_convex <span class="ot">&lt;-</span> <span class="fu">graph_match_FW</span>(g1, g2, seeds, <span class="at">start =</span> start_convex)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>err_bari_bad <span class="ot">&lt;-</span> <span class="fu">mean</span>(match_bari<span class="sc">$</span>corr<span class="sc">$</span>corr_A[<span class="sc">!</span>seeds] <span class="sc">!=</span> match_bari<span class="sc">$</span>corr<span class="sc">$</span>corr_B[<span class="sc">!</span>seeds])</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>err_rds_bad <span class="ot">&lt;-</span> <span class="fu">mean</span>(match_rds<span class="sc">$</span>corr<span class="sc">$</span>corr_A[<span class="sc">!</span>seeds] <span class="sc">!=</span> match_rds<span class="sc">$</span>corr<span class="sc">$</span>corr_B[<span class="sc">!</span>seeds])</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>err_convex_bad <span class="ot">&lt;-</span> <span class="fu">mean</span>(match_convex<span class="sc">$</span>corr<span class="sc">$</span>corr_A[<span class="sc">!</span>seeds] <span class="sc">!=</span> match_convex<span class="sc">$</span>corr<span class="sc">$</span>corr_B[<span class="sc">!</span>seeds])</span></code></pre></div>
+<p>Since in this example both of the soft seeds are incorrect, intuitively not incorporating such incorrect information might yield better matching results. This motivates us to perform a comparative experiment on whether or not to incorporate such incorrect soft seeds. The R code for performing graph matching with only the hard seeds is similar to soft seeding except for different specification of the <code>start</code> argument.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>match_nss_bari <span class="ot">&lt;-</span> <span class="fu">graph_match_FW</span>(g1, g2, seeds, <span class="at">start =</span> <span class="st">&quot;bari&quot;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>match_nss_rds <span class="ot">&lt;-</span> <span class="fu">graph_match_FW</span>(g1, g2, seeds, <span class="at">start =</span> <span class="st">&quot;rds&quot;</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>match_nss_convex <span class="ot">&lt;-</span> <span class="fu">graph_match_FW</span>(g1, g2, seeds, <span class="at">start =</span> <span class="st">&quot;convex&quot;</span>)</span></code></pre></div>
+<p>For completeness, we also include an example of good soft seeds, say {4,4} and {8,8}. Then we follow the same procedure as in the bad soft seeds case, and yield the matching results for good soft seeds when matching the same graphs. Since the codes corresponding soft seeding implementation are the same, we’ll skip the codes and only show the results comparing the three cases.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>good_soft_seeds <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>),<span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">8</span>))</span></code></pre></div>
+<table>
+<caption>Matching Errors With Various Initialization Methods</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">bari</th>
+<th align="right">rds</th>
+<th align="right">convex</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">good soft seeds</td>
+<td align="right">0.7142857</td>
+<td align="right">0.5714286</td>
+<td align="right">0.7142857</td>
+</tr>
+<tr class="even">
+<td align="left">bad soft seeds</td>
+<td align="right">0.7142857</td>
+<td align="right">0.7142857</td>
+<td align="right">0.7142857</td>
+</tr>
+<tr class="odd">
+<td align="left">non soft seeds</td>
+<td align="right">0.8571429</td>
+<td align="right">0.8571429</td>
+<td align="right">0.8571429</td>
+</tr>
+</tbody>
+</table>
+<p>Table 2 presents the matching error of nonseeded vertex sets with various initialization methods. Compared with using a mixture of good soft seeds and bad soft seeds and matching without soft seeds, incporating good soft seeds decrease or maintain the same matching error for all the initialization methods. Note that for the convex initialization method, we can successfully uncover the true correspondence of two graphs by using good soft seeds. Using partial good soft seeds can also improve the matching performances except for the convex case. In general, random doubly stochastic initialization yields the most stable matching result while the convex intialization method using good soft seeds achieves the highest matching accuracy among all the methods.</p>
+<p>We also illuminate the difference between various initialization methods by presenting the experiment results on larger scale graphs under more parameter settings and with more monte carlo replicates. The experiment is relatively time consuming in case of larger scale graphs, we recommend to run larger simulations on server, or consider using statistical computing methods, e.g. divide and conquer algorithm  to enhance the speed of experiments. Here we just show the result figure and skip the R code.</p>
+<p>Figure 1 shows the average performance for 300 graph pairs sampled from Erdős-Rényi graph model with the settings: <span class="math inline">\(p\in\{0.1,0.2,0.5\}\)</span>, <span class="math inline">\(\rho=0.5\)</span>, <span class="math inline">\(n_v=250\)</span> and <span class="math inline">\({n_s}=10\)</span>. Wrong soft seeds are randomly sampled from the nonseed vertices. We observe that with a moderate number of incorrect soft seeds, convex start outpreforms the other two start methods. Converting from a random doubly stochastic start to a convex start can reduce the matching error by 0.1 to 0.3. As a result, when implementing a soft seeding graph matching, if we know the proportion of incorrect soft seeds is not too high (approximately <span class="math inline">\(\le70\%\)</span>), it’s recommendated to choose a convex start.</p>
+</div>
+</div>
+<div id="identification-of-core-vertices" class="section level2">
+<h2>Identification of Core Vertices</h2>
+<div id="graph-matching-with-junk-vertices-setting" class="section level3">
+<h3>Graph Matching with Junk Vertices Setting</h3>
+<p>The previous discussions are all based on the setting that there is always a corresponding vertex in <span class="math inline">\(G2\)</span> for each vertex in <span class="math inline">\(G1\)</span>. however, this is not always the case. Social networks offer a compelling example for this, where matching across different social platforms (or within a single time varying social network) requires the understanding that not all users will be participants in both networks.</p>
+<p>Junk vertices refer to the vertices that don’t have true alignments in the other graph. This could be modeled by correlated heterogeneous Erdős-Rényi random graphs .</p>
+<dl>
+<dt>Definition</dt>
+<dd>For <span class="math inline">\(R\)</span> and <span class="math inline">\(\Lambda\)</span> symmetric, hollow matrices in [0,1]<span class="math inline">\(^{n\times n}\)</span>, wesay <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> are <span class="math inline">\(R\)</span>-correlated heterogeneous Erdős-Rényi(<span class="math inline">\(\Lambda\)</span>) random graphs (abbreviated <span class="math inline">\(CorrER(\Lambda, R)\)</span>) if:
+</dd>
+</dl>
+<ol style="list-style-type: lower-roman">
+<li><p><span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are marginally <span class="math inline">\(ER(\Lambda)\)</span>; i.e., for all <span class="math inline">\(u\)</span>, <span class="math inline">\(v\in [n]\)</span>, <span class="math inline">\(u&lt;v\)</span>, <span class="math inline">\(A_{uv} \stackrel{\text{iid}}{\sim} Bern(\Lambda_{uv})\)</span> and <span class="math inline">\(B_{uv} \stackrel{\text{iid}}{\sim} Bern(\Lambda_{uv})\)</span>, with <span class="math inline">\(A_{uv}=A_{vu}\)</span> and <span class="math inline">\(B_{uv}=B_{vu}\)</span>.</p></li>
+<li><p>For all <span class="math inline">\(u\)</span>,<span class="math inline">\(v\)</span>,<span class="math inline">\(w\)</span>,<span class="math inline">\(r\in [n]\)</span>, <span class="math inline">\(u&lt;v\)</span>, <span class="math inline">\(w&lt;r\)</span>, it holds that <span class="math inline">\(A_{uv}\)</span> and <span class="math inline">\(B_{wr}\)</span> are independent unless <span class="math inline">\(u=w\)</span> and <span class="math inline">\(v=r\)</span>, in which case the correlation between <span class="math inline">\(A_{uv}\)</span> and <span class="math inline">\(B_{uv}\)</span> is <span class="math inline">\(R_{u,v}\ge 0\)</span>.</p></li>
+</ol>
+<p>At one extreme, if <span class="math inline">\(R=[0]_n\)</span> then the graphs are independent <span class="math inline">\(ER(\Lambda)\)</span>, and at the other extreme, if <span class="math inline">\(R=J_n\)</span> then <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are isomorphic almost surely. This model is a generalization of the homogeneous correlated <span class="math inline">\(ER\)</span> model discussed earlier, and similarly allows for the addition of “junk” vertices—those without a probabilistic match across graphs—by setting <span class="math inline">\(R=R_k\oplus[0]_{n-k}\)</span> for some <span class="math inline">\(k\le n\)</span>.</p>
+<p><span class="math inline">\((A,B) \sim CorrER(\Lambda, R)\)</span> are matchable, if argmin<span class="math inline">\(_{P\in \Pi(n)} \Vert AP-PB \Vert _F={I_n}\)</span>, where <span class="math inline">\(I_n\)</span> denotes the identity matrix. Our goals are to uncover the alignment between core vertices, i.e those where <span class="math inline">\(R_{u,v}&gt;0\)</span> for some <span class="math inline">\(u,v \in [n]\)</span>, and to detect which vertices are core versus junk vertices.</p>
+</div>
+<div id="different-measures-for-goodness-of-matching" class="section level3">
+<h3>Different Measures for Goodness of Matching</h3>
+<p>Having a measure for goodness of matching is important. The measure can be used in finding core vertices in the setting with junk vertices. Since we can rank all the vertices in the order of goodness of matching based on the measure, it’s also useful for choosing the best matched vertices. The best matched core vertices can then be used as additional seeds in the next iteration of graph matching, and we call this process adaptive seeding which is introduced in the next section. Here we list three different measures for goodness of matching, row permutation statistics, row difference and row correlation.</p>
+<p>Row permutation statstics  is based on a graph matching variant of the permutation test. In terms of a vertex <span class="math inline">\(v\)</span>, test the hypotheses <span class="math display">\[H_0^{(v)}: \forall P\in\mathcal{P}, u\neq v, corr(A_{vu},(PBP^T)_{vu})=0,\]</span> <span class="math display">\[H_A^{(v)}: \exists P\in\mathcal{P}, u\neq v, corr(A_{vu},(PBP^T)_{vu})&gt;0\]</span> To test, we will make use of the following relationship between edge-wise correlation and the number of induced error between <span class="math inline">\(A\)</span> and <span class="math inline">\(P^*B{P^*}^T\)</span>. Namely, if <span class="math inline">\(v\)</span> is a core vertex (or <span class="math inline">\(v\)</span> is correctly matched), then the number of errors induced by <span class="math inline">\(P^*\)</span> across the neighborhoods of <span class="math inline">\(v\)</span> in <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> (i.e., <span class="math inline">\(\Vert(AP^*-P^*B)_{v,\bullet}\Vert_1\)</span>) should be significantly smaller than the number of errors induced by a randomly chosen permutation <span class="math inline">\(P\)</span> (i.e., <span class="math inline">\(\Vert(AP-PB)_{v,\bullet}\Vert_1\)</span>). With this in mind, we define <span class="math inline">\(\Delta_v(P)=\Vert(AP-PB)_{v,\bullet}\Vert_1\)</span> and let <span class="math inline">\(\mathbb{E}_P\)</span> and Var<span class="math inline">\(_P\)</span> denote the conditional expection and variance of these quantities with respect to uniform sampling of <span class="math inline">\(P\)</span> over all permutation matrices. Inspired by the permutation-test, we define the row permutation statistic as: <span class="math display">\[T_p(v,P^*):=\frac{\Delta_v(P^*)-\mathbb{E}_P\Delta_v(P)}{\sqrt{Var_P\Delta_v(P)}}\]</span> Intuitively, the larger <span class="math inline">\(T_p(v)\)</span>, the more likely <span class="math inline">\(v\)</span> is to be a core vertex (or the more likely we find the true alignment to <span class="math inline">\(v\)</span>).</p>
+<p>Row difference is defined as the L-1 norm of <span class="math inline">\(A\)</span> and <span class="math inline">\(P^*B{P^*}^T\)</span>, which is <span class="math display">\[T_d(v,P^*):=\Vert A_{v\bullet}-(P^*B{P^*}^T)_{v\bullet}\Vert_1\]</span> Intuitively, correctly matched vertex <span class="math inline">\(v\)</span> (or core vertex <span class="math inline">\(v\)</span>) should induce smaller <span class="math inline">\(T_d(v,P^*)\)</span>.</p>
+<p>Row correlation is a statistics for the correlation between <span class="math inline">\(A\)</span> and <span class="math inline">\(P^*B{P^*}^T\)</span> which is defined as <span class="math display">\[T_c(v,P^*):=1-corr(A_{v\bullet},(P^*B{P^*}^T)_{v\bullet})\]</span> If <span class="math inline">\(v\)</span> is correctly matched, then the correlation between the neighborhoods of <span class="math inline">\(v\)</span> in <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> should be smaller. Thus, larger <span class="math inline">\(T_c(v)\)</span> value indicates higher chance of vertex <span class="math inline">\(v\)</span> being correctly matched (or more likely <span class="math inline">\(v\)</span> is to be a core vertex).</p>
+</div>
+<div id="algorithm-of-finding-core-vertices" class="section level3">
+<h3>Algorithm of Finding Core Vertices</h3>
+<p>We next develop an approach to identify core vertices correctly. The main tool that we utilize is a graph matching variant of permutation test. We will use the test statistic <span class="math inline">\(T(\bullet)\)</span> to rank vertices based on the likelihood they are core vertices. Suppose <span class="math inline">\(A,B\in\{0,1\}^{(n_c+n_j)\times (n_c+n_j)}\)</span> are the adjacency matrices corresponding to graphs <span class="math inline">\(G1\)</span> and <span class="math inline">\(G2\)</span>, where <span class="math inline">\(n_c\)</span> denotes the number of core vertices and <span class="math inline">\(n_j\)</span> denotes the number of junk vertices. Denote the available seeded vertices as <span class="math inline">\(S\)</span>. Algorithm of finding core vertices consists of the following steps. First, use the available seeded vertices <span class="math inline">\(S\)</span> to match <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> yielding the optimal permutation <span class="math inline">\(P^*\)</span>. Based on the matching result, then plug in <span class="math inline">\(P^*\)</span> to compute the value of <span class="math inline">\(T(v,P^*)\)</span> for each vertex <span class="math inline">\(v\)</span>. Finally rank all the vertices via the decreasing value of <span class="math inline">\(T(v,P^*)\)</span> with increasing likelihood of being core vertices, that is the first <span class="math inline">\(n_j\)</span> vertices are identified as junk vertices with decreasing likelihood.</p>
+</div>
+<div id="simulations-1" class="section level3">
+<h3>Simulations</h3>
+<p>Now implement algorithm of finding core vertices in R with <code>iGraphMatch</code> package. First we sample a pair of graphs with 50 vertices from the correlated Erdős-Rényi graph model and let 5 out of the total vertices to be junk vertices using function <code>sample_correlated_gnp_pair_w_junk</code>. We also assume the first 10 vertices to be seeds. Then apply the FAQ algorithm to match two graphs.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">5</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>cgnp_pair <span class="ot">&lt;-</span> <span class="fu">sample_correlated_gnp_pair_w_junk</span>(<span class="at">n =</span> <span class="dv">50</span>, <span class="at">corr =</span> .<span class="dv">5</span>, <span class="at">p =</span> .<span class="dv">5</span>, <span class="at">ncore =</span> <span class="dv">45</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> cgnp_pair<span class="sc">$</span>graph1</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> cgnp_pair<span class="sc">$</span>graph2</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>seeds <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">:</span> <span class="dv">50</span> <span class="sc">&lt;=</span> <span class="dv">10</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>core <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">:</span> <span class="dv">50</span> <span class="sc">&lt;=</span> <span class="dv">45</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>junk <span class="ot">&lt;-</span> <span class="sc">!</span>core</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>non_seeds <span class="ot">&lt;-</span> <span class="sc">!</span>seeds</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>match <span class="ot">&lt;-</span> <span class="fu">graph_match_FW</span>(g1, g2, seeds, <span class="at">start =</span> <span class="st">&quot;rds&quot;</span>)</span></code></pre></div>
+<p>Then implement the algorithm for finding core vertices, we use row permutation statistic as our measure in this example. The main steps of the algorithm involves calculating values of the row permutation statistic for each nonseed vertex and rank them in the order of increasing value of the statistic. These steps can be implemented by using the <code>best_matches</code> function. The <code>best_matches</code> function has the functionality of finding best matched vertices and identifying core vertices. Since we want to rank all the non-seed vertices in terms of their row permutation statistics, set argument <code>x</code> to be <code>non_seeds</code>, which denotes the vertices we are interested in. Also set argument <code>num</code> to be the number of non-seeds, which denotes the number of top ranked vertices we want to get. By returning the result in <code>A_best</code>, we get the indices corresponding to vertices in <span class="math inline">\(G1\)</span> in the order of decreasing likelihood of being core vertices.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">best_matches</span>(<span class="at">A =</span> g1, <span class="at">B =</span> g2, <span class="at">match =</span> match,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">measure =</span> <span class="st">&quot;row_perm_stat&quot;</span>, <span class="at">num =</span> <span class="fu">sum</span>(non_seeds))<span class="sc">$</span>A_best</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>r</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] 18 31 32 24 19 13 27 28 30 17 36 20 37 33 42 44 34 21 29 15 48 12 49 14 39</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [26] 11 38 46 35 16 43 50 40 41 25 45 22 26 47 23</span></span></code></pre></div>
+<table>
+<caption>Summarization Table for Core Identification Precisions</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">k1</th>
+<th align="right">k5</th>
+<th align="right">k10</th>
+<th align="right">k25</th>
+<th align="right">k35</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">core identification precision</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0.8687371</td>
+<td align="right">0.8125</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Summarization Table for Junk Identification Precisions</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">k1</th>
+<th align="right">k2</th>
+<th align="right">k3</th>
+<th align="right">k4</th>
+<th align="right">k5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">junk identification precision</td>
+<td align="right">0.25</td>
+<td align="right">0</td>
+<td align="right">0.08</td>
+<td align="right">0.21</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p>Since there are 5 junk vertices, the last 5 vertices in the output are identified as junk vertices. Note that seeded vertices are not ranked. In order to evaluate the performance of core identification algorithm in this example, we calculate the precision of classification for each vertex and summarize the precisions in table 3 and table 4. Table 3 shows the identification precision for <span class="math inline">\(k=1,5,10,25,35\)</span>, where <span class="math inline">\(k\)</span> denotes the rank of identified core vertices. Higher rank indicates the vertex has higher probability to be a core vertex. From table 3, the core identification algorithm achieves pretty high precision for identifying the core vertices. In contrast, the identification precision for junk vertices drops quickly as we averaging over more high rank junk vertices.</p>
+<p>Figure  shows the simulation results for two random graphs sampled from CorrER<span class="math inline">\((0.2,0.5J_{n_c}\oplus\mathrm{0}_{n_j})\)</span> with <span class="math inline">\(n_j \in\{20,50\}\)</span> and <span class="math inline">\(n_s\in\{5,10,20\}\)</span> . The figure averages the results of 1000 monte carlo replicates by plotting the mean precision at each rank with lower ranks indicating core vertices and higher ranks near <span class="math inline">\(n\)</span> indicating junk vertices. When there are a small number of seeded vertices, the core identification algorithm doesn’t outperform the random algorithm much, which is indicated by the horizontal lines. But when we have 20 seeds, the core identification algorithm achieves substantially higher precision than the random algorithm, especially for junk vertices. As expected, when there are smaller number of junk vertices, the algorithm is able to have better performance.</p>
+</div>
+</div>
+<div id="graph-matching-with-adaptive-seeds" class="section level2">
+<h2>Graph Matching with Adaptive Seeds</h2>
+<p>In this part, we will show you how to conduct FW graph matching method with adding adaptive seeds iteratively. The idea is motivated by the fact that in many realistic applications, we only know a small number of seeds while the number of vertices to be matched is large. Since there are costs and difficulties in acquiring seeds, the following algorithm will provide a feasible approach to acquire additional seeds and use them in graph matching to achieve higher matching accuracy.</p>
+<p>The inputs are the adjacency matrices of two graphs A and B. Both graphs are composed of <span class="math inline">\(n_c\)</span> matchable core vertices and <span class="math inline">\(n_j\)</span> junk vertices, vertices that don’t have a bijection in the other graph, and some available seeds <span class="math inline">\(S\)</span>. The detailed algorithm is given in algorithm .</p>
+<!-- 
+### Simulations
+Now implement the algorithm in R with `iGraphMatch` package on the correlated stochastic block  model. First use function `sample_correlated_sbm_pair_w_junk` to sample a pair of graphs from the correlated stochastic block model with 50 nodes in each graph and the correlation between two graphs is 0.5. We set the number of blocks in each graph to be 2 of sizes 15 and 35 and specify the edge probabilities between vertices within the smaller block, the bigger block and across blocks to be 0.3, 0.5 and 0.7 respectively. In this example, we consider a core-junk setting by setting the first 10 and 30 vertices in each block to be core vertices, while the rest being junk vertices. Finally let the first 5 core vertices in block be known seeds.
+
+```r
+set.seed(6)
+pm <- cbind( c(.3, .5), c(.5, .7) )
+sbm_pair <- sample_correlated_sbm_pair_w_junk(n = 50, pref.matrix = pm, rho = 0.5,
+                                              block.sizes = c(15,35), 
+                                              core.block.sizes = c(10,30))
+g1 <- sbm_pair$graph1
+g2 <- sbm_pair$graph2
+
+seeds <- 1 : 50 <= 5
+seeds[16:20] <- TRUE
+```
+
+Perform FW graph matching with the first 10 nodes to be seeds by using `graph_match_FW` function.
+
+```r
+match <- graph_match_FW(g1, g2, seeds = seeds, start = "convex")
+err <- mean(match$corr$corr_A[!seeds] != match$corr$corr_B[!seeds])
+```
+
+Analyze goodness of matching by using the row permutation statistics measure and select top 3 best matched pairs of vertices as adaptive seeds. Step 3 and 4 can be implemented by using the `best_matches` function as the following:
+
+```r
+seeds_adp <- best_matches(A = g1, B = g2, match = match, 
+                            measure = "row_perm_stat", num = 3)
+seeds_adp
+#>   A_best B_best measure_value
+#> 1     34     48     -4.199783
+#> 2     26     26     -3.732369
+#> 3     11     25     -3.732369
+```
+
+By using row permutation statistics, all of the three seeds selected are correct. Then we combine the adaptive seeds with the original seeds we have and redo the FW graph matching with the updated seeds:
+
+```r
+seeds <- rbind(as.matrix(check_seeds(seeds, nv = 50)$seeds), as.matrix(seeds_adp)[,1:2])
+match_adp <- graph_match_FW(g1, g2, seeds=seeds, start = "convex")
+seeds <- 1 : 50 <= 10
+err_adp <- mean(match_adp$corr$corr_A[!seeds] != match_adp$corr$corr_B[!seeds])
+```
+
+
+Table: Matching Errors for Adaptive Seeding
+
+| err_orig| err_adp|
+|--------:|-------:|
+|     0.75|    0.55|
+
+
+Table 5 shows the matching errors with only the original seeds and after adding 3 seeds adaptively, the matching error is reduced from 0.75 to 0.55 in one iteration. Again we also present the result figures from simulations on larger graphs and with more monte carlo replicates to illustrate the performance of adaptive seeds. Figure \ref{fig:summary_er}, \ref{fig:summary_rdpg} and figure \ref{fig:summary_Twitter} show the average results of 300 monte carlo replicates.
+
+\begin{figure}
+    \includegraphics[width=\linewidth]{summary_er.pdf}
+    \caption{Matching accuracy when adding seeds adaptively across two iterations as a function of number of seeds, number of junk vertices and edge probability. Fix $\rho=0.5$, n=250. 7 adaptive seeds are added in each iteration.}
+    \label{fig:summary_er}
+\end{figure}
+
+In the Erdős-Rényi regime, we consider matching two graphs with 250 nodes, for $p\in \{0.1,0.2,0.5\}$. Set the correlation between two graphs to be 0.5 and consider matching two graphs $G1$ and $G2$ using the SGM algorithm \cite{SGM} run with $n_s\in\{10,20,50\}$, $n_j\in\{0,5,10,20,50\}$. From figure \ref{fig:summary_er}, we see algorithm \ref{alg:adaptive-seeds} improves the performance of graph matching under each of $n_s\in\{10,20,50\}, n_j\in\{0,5,10,20,50\}$, except for one case when edge probability is small ($p=0.1$) and number of junk vertices is big ($n_j\ge20$). The figure also clearly shows that adding adaptive seeds iteratively contributes to improving core matching performance.
+
+\begin{figure}
+    \includegraphics[width=\linewidth]{summary_rdpg.pdf}
+    \caption{Matching accuracy when adding seeds adaptively across two iterations as a function of number of seeds, number of junk vertices and edge probability. Fix $\rho=0.5$, n=250. 10 adaptive seeds are added in each iteration.}
+    \label{fig:summary_rdpg}
+\end{figure}
+
+To analyze the effect of vertex heterogeneity including degree heterogeneity and mixed membership community structure, we also simulated correlated graphs from the random dot product graph distributions. For this case, we have $A, B \sim CorrER(XX^T,R)$ where $X=[X_1,X_2,...,X_n]^T\in \mathcal{R}^{n\times d}$ is the matrix of latent positions and $X_1,...,X_n$ are independently and identically distributed for some distribution $F$ satisfying $\mathbb{P}[X_i^TX_j\in [0,1]]=1$ for all $i,j$. Note that $A_{ij}, B_{ij} \sim Bern(X_i^T,X_j)$. In this exapmle, we take $F$ to be a 2-dimensional marginal of a Dirichlet distribution on three dimensions with scale parameter $\alpha$ and mean vector $(1/3,1/3,1/3)$. Note that when $\alpha$ is large, the distribution will approximate the homogeneous Erdős-Rényi case with $p=\frac{2}{9}$.
+
+Figure \ref{fig:summary_rdpg} shows the result of matching accuracy as a function of number of original seeds, number of junk vertices and various scale for the random dot product graphs model. Each line in the figure is the average of 300 monte carlo replicates for each of $\alpha \in \{1,2,32\}$, $n_s \in \{5,10,20\}$ and $n_j \in \{0,10,40,50\}$. Note that in the experiment, we skip the cases when $\alpha \in\{1,2\}$ and the number of original hard seeds is 20, because the graph matching accuracy is already very high in the first iteration when no seeds are added adaptively. From the figure, we can see that the algorithm is more effective in improving core matching performance with smaller scale, less junk vertices and more original seeds. Notice that in the setting $\alpha=1, ns=20, nj\le10$, and the setting $\alpha=32, n_s=20, n_j\le50$ adding hard seeds twice can improve the core matching performance to almost perfect.
+
+\begin{figure}
+    \includegraphics[width=\linewidth]{summary_Twitter.pdf}
+    \caption{Matching accuracy when adding seeds adaptively across two iterations as a function of number of seeds and number of junk vertices. Fix $\rho=0.5$ and $n_{as}=7$. 20 adaptive seeds are added in each iteration.}
+    \label{fig:summary_Twitter}
+\end{figure}
+
+In order to evaluate the performance the algorithm \ref{alg:adaptive-seeds} with real data, we also did experiments with real Twitter data. We took the most active users from April and May 2014 to be the nodes of the graphs. The graphs are then weighted by means of taking log of the times a user mentioned another user during the given month. The empirical Pearson correlation between the entries in the two weighted adjacency matrices are approximately 0.91. We finally have the same group of users of size 431 in each graph by keeping the largest common connected ones.
+
+To mimick the core-junk setting in the context of Twitter data, we sample three disjoint sets of users from 431 users, namely $C, J_{April}$ and $J_{May}$ of sizes $n_c,n_j$ and $n_j$ respectively. Then combine $C$ and $J_{April}$ to get an induced subgraph of Twitter users from April. Similarly, Combine $C$ and $J_{May}$ to get the second graph, the induced subgraph of Twitter users from May. Since three vertex sets are disjoint, vertices $J_{April}$ and $J_{May}$ don't have an alignment in the other graph. Hence $J_{April}$ and $J_{May}$ are the junk vertices, and vertices $C$ are the core vertices. 
+
+Figure \ref{fig:summary_Twitter} shows the average matching accuracy across 300 monte carlo replicates of graphs sampled with $n=250$, $n_s\in \{0,20,50\}$ and $n_j \in \{5,20,50\}$. Adding hard seeds effectively increase matching accuracy in each iteration. Although the original matching accuracy is lower with smaller number of original seeds, matching accuracy increases quicker when we add adaptive seeds.
+ -->
+<p>##Discussion The primary goal of this package is to facilitate research related to graph matching by providing a variety of useful tools in several aspects of graph matching problem, including graph matching algorithm, quality measure, random graph models etc. In <code>iGraphMatch</code> package we implement two graph matching algorithms, the FAQ algorithm and the convex relaxed algorithm. Both algorithms are applicable to the setting with junk vertice which is a more general case. Moreover, the package is capable of handling weighted graphs and graphs with different orders (by adding padding ). For future works, we target to implement more graph matching algorithms aiming at enhancing the computational efficiency, which is especially significant to matching two large scale graphs.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
