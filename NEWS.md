@@ -1,3 +1,6 @@
+# iGraphMatch 2.0.1
+
+* Updates for changes to Matrix package
 
 # iGraphMatch 2.0.0
 
