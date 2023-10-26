@@ -277,7 +277,7 @@ nj <- max(length(v1), length(v2))
 core_precision <- 1:nc %>% map_dbl(~mean(bm$A_best[1:.x]<=nc))
 junk_precision <- 1:nj %>% map_dbl(~mean(bm$A_best[(nc+.x):(nc+nj)]>nc))
 
-## ---- echo=FALSE, out.width="0.5\\textwidth", out.height="0.24\\textheight", fig.cap="\\label{fig:core}Mean precision for identifying core and junk vertices for the Enron networks by using the row permutation test. The vertical lines separate the performance of identifying core vertices with low ranks from junk vertices with high ranks. The horizontal lines indicate the performance of a random classifier."----
+## ----echo=FALSE, out.width="0.5\\textwidth", out.height="0.24\\textheight", fig.cap="\\label{fig:core}Mean precision for identifying core and junk vertices for the Enron networks by using the row permutation test. The vertical lines separate the performance of identifying core vertices with low ranks from junk vertices with high ranks. The horizontal lines indicate the performance of a random classifier."----
 library(ggplot2)
 
 map_df_core <- data.frame(rank = 1:nc, which = "core", 
@@ -407,7 +407,7 @@ knitr::kable(
 )
 # Edge summary of the Britain Transportation Network layers.  
 
-## ---- out.width="47.5%", fig.show="hold", echo=FALSE, fig.cap="\\label{Fig:trans_net} Visualization of the template graph (left) and the world graph (right) with corresponding vertices, both derived from the Britain Transportation network with five layers: ferry, rail, metro, coach, and bus. Edges represent transportation transactions and each color indicates a different means of transportation from a different layer of network."----
+## ----out.width="47.5%", fig.show="hold", echo=FALSE, fig.cap="\\label{Fig:trans_net} Visualization of the template graph (left) and the world graph (right) with corresponding vertices, both derived from the Britain Transportation network with five layers: ferry, rail, metro, coach, and bus. Edges represent transportation transactions and each color indicates a different means of transportation from a different layer of network."----
 
 l <- 1:length(tm)
 

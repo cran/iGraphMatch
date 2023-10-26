@@ -36,7 +36,7 @@ overflow: visible;
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -135,6 +135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; }
 div.csl-bib-body { }
 div.csl-entry {
 clear: both;
+margin-bottom: 0em;
 }
 .hanging div.csl-entry {
 margin-left:2em;
@@ -812,9 +813,9 @@ For example, to sample a pair of graphs with 5 nodes from <span class="math inli
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>cgnp_pair <span class="ot">&lt;-</span> <span class="fu">sample_correlated_gnp_pair</span>(<span class="at">n =</span> <span class="dv">5</span>, <span class="at">corr =</span> <span class="fl">0.7</span>, <span class="at">p =</span> <span class="fl">0.5</span>)</span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>(cgnp_g1 <span class="ot">&lt;-</span> cgnp_pair<span class="sc">$</span>graph1)</span></code></pre></div>
-<pre><code>## IGRAPH 00a0bec U--- 5 4 -- Erdos-Renyi (gnp) graph
+<pre><code>## IGRAPH 82c6be0 U--- 5 4 -- Erdos-Renyi (gnp) graph
 ## + attr: name (g/c), type (g/c), loops (g/l), p (g/n)
-## + edges from 00a0bec:
+## + edges from 82c6be0:
 ## [1] 1--2 2--3 2--5 3--5</code></pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>cgnp_g1[]</span></code></pre></div>
 <pre><code>## 5 x 5 sparse Matrix of class &quot;dgCMatrix&quot;
@@ -1120,11 +1121,11 @@ In addition to the returned list of matching correspondence, one can obtain the 
 <p>Notably, multiplicity is applicable to the “graphMatch” object directly without converting to the permutation matrix.
 This enables obtaining the permuted second graph, that is <span class="math inline">\(PBP^T\)</span> simply by</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>match_convex <span class="sc">%*%</span> cgnp_g2</span></code></pre></div>
-<pre><code>## IGRAPH 341a005 UN-- 5 5 -- Erdos-Renyi (gnp) graph
+<pre><code>## IGRAPH e948ced UN-- 5 5 -- Erdos-Renyi (gnp) graph
 ## + attr: name_1 (g/c), name_2 (g/c), type_1 (g/c), type_2 (g/c), loops_1
 ## | (g/l), loops_2 (g/l), p_1 (g/n), p_2 (g/n), name (g/c), type (g/c),
 ## | loops (g/l), p (g/n), name (v/n)
-## + edges from 341a005 (vertex names):
+## + edges from e948ced (vertex names):
 ## [1] 5--3 2--5 2--3 1--5 1--2</code></pre>
 </div>
 <div id="evaluation-of-goodness-of-matching" class="section level2" number="4.3">
@@ -1768,7 +1769,7 @@ We also want to thank all of our users, especially Youngser Park, for their feed
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-relax_paper" class="csl-entry">
 Aflalo, Yonathan, Alexander Bronstein, and Ron Kimmel. 2015b. <span>“On Convex Relaxation of Graph Isomorphism.”</span> <em>Proceedings of the National Academy of Sciences</em> 112 (10): 2942–47. <a href="https://doi.org/10.1073/pnas.1401651112">https://doi.org/10.1073/pnas.1401651112</a>.
 </div>
