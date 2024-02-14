@@ -1,7 +1,7 @@
 Package: iGraphMatch
 Type: Package
 Title: Tools for Graph Matching
-Version: 2.0.3
+Version: 2.0.4
 Authors@R: c(person("Daniel", "Sussman", role = c("aut", "cre"), email = "sussman@bu.edu"),
              person("Zihuan", "Qiao", role = c("aut"), email = "zhqiao@bu.edu"),
              person("Joshua", "Agterberg", role = "ctb"),
@@ -26,7 +26,7 @@ LinkingTo: Rcpp
 Config/testthat/edition: 3
 BugReports: https://github.com/dpmcsuss/iGraphMatch/issues
 NeedsCompilation: yes
-Packaged: 2023-10-26 20:13:00 UTC; dsussman
+Packaged: 2024-02-13 20:13:37 UTC; dsussman
 Author: Daniel Sussman [aut, cre],
   Zihuan Qiao [aut],
   Joshua Agterberg [ctb],
@@ -34,4 +34,4 @@ Author: Daniel Sussman [aut, cre],
   Vince Lyzinski [ctb]
 Maintainer: Daniel Sussman <sussman@bu.edu>
 Repository: CRAN
-Date/Publication: 2023-10-26 20:40:02 UTC
+Date/Publication: 2024-02-14 00:04:00 UTC

@@ -1,6 +1,6 @@
-306984a8050f63076843d458cb56a29a *DESCRIPTION
+4fd72454a66badb71f84bb75cdf19a62 *DESCRIPTION
 c17574982d924fa775801278f6c4221e *NAMESPACE
-31c457f3ef0012cd962e1d50217d9cbe *NEWS.md
+3bc856514661049dd6d72c78c5bd5ac2 *NEWS.md
 7bed1cbd70c6cd8f4657fdd62d54acc7 *R/RcppExports.R
 8a9b09226faefeb9dfc898cab690b725 *R/best_matches.R
 b6b801eb4d05cdfa00719f3b49ebfe6c *R/center_graph.R
@@ -17,7 +17,7 @@ d71c9aba4e7724e312fbc0e45b872089 *R/gm_isorank.R
 09c5b6f43997c1890dff39c2a156df0f *R/gm_percolation.R
 8b4e15daaeb617c71178f77093c5d7eb *R/gm_umeyama.R
 17a4f7a1fe4bc235ab754fc04d27e004 *R/gradient_seed_to_nonseed.R
-6b1fb915e858578d6e4918253951ef17 *R/graph_match_class.R
+2d8f12d5167b646fa9986942eac87848 *R/graph_match_class.R
 fcc5e9a0c6dfe1ec2ee68ff9e9932d5d *R/iGraphMatch-package.R
 7c275704b9a09da143b877c1b6c94004 *R/init_start.R
 6a887788a26868fef6da351f883987ee *R/lap.R
@@ -34,14 +34,14 @@ f0a6c2e6648728b15938cf5c9edfb745 *R/split_igraph.R
 51811691d2124adde36f98967037cc18 *R/splr_matrix_class.R
 4e14cc8db3e05740158a30f7e3913547 *R/start.R
 564411e8b824cb5cc99527df10ba2727 *README.md
-ebbcad2cc6c87b05a81bc3400bb259e9 *build/vignette.rds
-536a0da4bb64cce05669457f20d57917 *data/C.Elegans.rda
-5cae8f3aa2611bfc239218647237c0ea *data/Enron.rda
+c920946b749a4ba1672d15ca1c7f502f *build/vignette.rds
+fd2838dc4dcc5299f6af5564e6511e5d *data/C.Elegans.rda
+13103d4af09331469cad76a3b9fc069f *data/Enron.rda
 28ee9374935f87db6968ef8d01435d1f *data/Transportation.rda
 f526de4cda573e6a12fc93229ec6e7b5 *inst/WORDLIST
 8fa272f9ef7a477ce3e2434132168f73 *inst/doc/iGraphMatch.R
 96dc95051c8886140b78669a23ef017f *inst/doc/iGraphMatch.Rmd
-3a35815af22144a9ab9af55b1afe5ae1 *inst/doc/iGraphMatch.html
+b945d3eeb45ca2adb075dfbc8a008487 *inst/doc/iGraphMatch.html
 91f7e7ce993cc76faaaacf63940adb45 *man/C.Elegans.Rd
 b2908aac78b8f3fd4a7536e438104df1 *man/Enron.Rd
 2d5ea7a503db1c774544877c488806ec *man/Transportation.Rd
